@@ -1,0 +1,74 @@
+/* 窗口背景 */
+QWidget {
+    background-color: #f0f8ff;
+}
+
+/* 侧边栏按钮的默认样式 */
+QPushButton#sidebarButton {
+    font-size: 18px;
+    color: rgba(100, 100, 100, 0.8);  /* 淡灰色字体 */
+    background: rgba(255, 255, 255, 0.15);  /* 轻微透明背景 */
+    border-radius: 8px;
+    padding: 10px;
+}
+
+/* 鼠标悬停效果 - 高亮 */
+QPushButton#sidebarButton:hover {
+    background-color: rgba(255, 255, 255, 0.6);  /* 提高清晰度 */
+}
+
+/* 选中状态 - 突出背景 */
+QPushButton#sidebarButton:checked {
+    background-color: rgba(200, 220, 255, 0.5); /* 更明显的淡蓝色 */
+    color: rgba(100, 100, 100, 0.8);  /* 保持灰色字体 */
+}
+
+/* 移除边框 */
+QPushButton#sidebarButton:focus {
+    outline: none;
+    border: none;
+}
+
+
+/* 游戏管理页面样式 */
+QPushButton#add_game_button {
+    font-size: 16px;
+    color: #333;
+    background-color: #ffddc1;
+    border: 1px solid #ff8c94;
+    border-radius: 8px;
+    padding: 10px;
+}
+
+QPushButton#add_game_button:hover {
+    background-color: #ff8c94;
+}
+
+QLabel#no_games_label {
+    color: #888;
+    font-size: 14px;
+    padding: 10px;
+    text-align: center;
+}
+
+
+/* 卡片悬浮效果 */
+QListWidget::item:hover {
+    background-color: #ffebcd;  /* 浅黄色背景 */
+    border: 1px solid #ff8c94;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+QPushButton#add_game_button {
+    font-size: 16px;
+    color: #333;
+    background-color: #ffddc1;
+    border: 1px solid #ff8c94;
+    border-radius: 8px;
+    padding: 10px;
+}
+
+QPushButton#add_game_button:hover {
+    background-color: #ff8c94;
+}
