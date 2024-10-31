@@ -1,10 +1,13 @@
 from PyQt6.QtWidgets import QSystemTrayIcon, QMenu, QApplication
 from PyQt6.QtGui import QIcon, QAction
 
+from utils.utils import resource_path
+
+
 class TrayIcon(QSystemTrayIcon):
     def __init__(self, parent=None):
         super().__init__(parent)
-        self.setIcon(QIcon("resources/icons/app_icon.png"))
+        self.setIcon(QIcon(resource_path("resources/icons/app_icon.png")))
         self.setToolTip("My Game Manager")
         tray_menu = QMenu(parent)
         exit_action = QAction("退出", self)

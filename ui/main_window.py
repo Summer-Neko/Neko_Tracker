@@ -29,7 +29,7 @@ class MainWindow(QMainWindow):
         self.tray_icon.show()
 
         # 设置主窗口属性
-        self.setWindowTitle("My Game Manager")
+        self.setWindowTitle("Neko Games")
         self.setGeometry(100, 100, 1000, 600)
 
         qss_path = resource_path("resources/styles/main.qss")
@@ -117,7 +117,7 @@ class MainWindow(QMainWindow):
                 "My Game Manager",
                 "已最小化到托盘，右键托盘图标退出。",
                 QSystemTrayIcon.MessageIcon.Information,
-                2000
+                1000
             )
         else:
             event.accept()
