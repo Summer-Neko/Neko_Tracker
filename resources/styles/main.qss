@@ -72,3 +72,30 @@ QPushButton#add_game_button {
 QPushButton#add_game_button:hover {
     background-color: #ff8c94;
 }
+
+/* 隐藏滚动条背景，只有在滚动时才显示 */
+QScrollBar:vertical, QScrollBar:horizontal {
+    background: transparent;  /* 没有滚动时隐藏 */
+    width: 8px;  /* 设置滚动条宽度为8px */
+    height: 8px;
+}
+
+QScrollBar::handle:vertical, QScrollBar::handle:horizontal {
+    background: #c0c0c0;  /* 设置滚动条为淡灰色 */
+    border-radius: 4px;   /* 圆角边缘 */
+    min-height: 20px;
+}
+
+QScrollBar::handle:vertical:hover, QScrollBar::handle:horizontal:hover {
+    background: #a0a0a0;  /* 鼠标悬浮时变暗 */
+}
+
+QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical,
+QScrollBar::add-line:horizontal, QScrollBar::sub-line:horizontal {
+    background: none;  /* 移除多余的箭头按钮 */
+}
+
+QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical,
+QScrollBar::add-page:horizontal, QScrollBar::sub-page:horizontal {
+    background: none;  /* 无滚动时保持隐藏 */
+}

@@ -2,8 +2,9 @@ from PyQt6.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout, QLabel, QPushButt
     QMenu
 from PyQt6.QtGui import QPixmap, QAction
 from PyQt6.QtCore import Qt, QPoint
-from database import init_db, add_game, get_games, get_game, delete_game
+from database import add_game, get_games, get_game, delete_game
 from ui.pages.game_dialog import GameDialog
+from utils.utils import resource_path
 
 
 class GameManagerPage(QWidget):
@@ -13,10 +14,9 @@ class GameManagerPage(QWidget):
         self.setObjectName("GameManagerPage")
 
         # 加载专属样式文件
-        with open("resources/styles/game_manager.qss", "r", encoding="utf-8") as f:
+        with open(resource_path("resources/styles/game_manager.qss"), "r", encoding="utf-8") as f:
             self.setStyleSheet(f.read())
 
-        init_db()  # 初始化数据库
 
         # 主布局
         main_layout = QVBoxLayout()
@@ -60,33 +60,34 @@ class GameManagerPage(QWidget):
 
     def create_game_card(self, game):
         card_widget = QWidget()
-        card_widget.setFixedSize(150, 250)  # 设置卡片固定大小
+        card_widget.setFixedSize(150, 250)
+        card_widget.setObjectName("game_card")
         card_layout = QVBoxLayout()
 
-        # 游戏竖向海报
+        # 使用高质量缩放模式显示图片
         poster_label = QLabel()
-        poster_pixmap = QPixmap(game[5]) if game[5] else QPixmap("resources/images/default_vertical.png")
+        poster_label.setObjectName("poster_label")
+        poster_pixmap = QPixmap(game[4]) if game[4] else QPixmap(resource_path("resources/images/default_vertical.png"))
         poster_label.setPixmap(poster_pixmap.scaled(150, 200, Qt.AspectRatioMode.KeepAspectRatioByExpanding,
                                                     Qt.TransformationMode.SmoothTransformation))
-        poster_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        poster_label.setAlignment(Qt.AlignmentFlag.AlignTop)
 
-        # 游戏名称标签
+        # 卡片布局
+        name_menu_layout = QHBoxLayout()
         name_label = QLabel(game[1])
-        name_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
         name_label.setObjectName("game_name_label")
+        name_menu_layout.addWidget(name_label)
 
-        # 菜单按钮
         menu_button = QPushButton("...")
         menu_button.setObjectName("menu_button")
         menu_button.setFixedSize(24, 24)
         menu_button.clicked.connect(lambda _, game_id=game[0]: self.show_menu(menu_button, game_id, game[1]))
+        name_menu_layout.addWidget(menu_button, alignment=Qt.AlignmentFlag.AlignRight)
 
-        # 布局
+        # 组合布局
         card_layout.addWidget(poster_label)
-        card_layout.addWidget(name_label)
-        card_layout.addWidget(menu_button, alignment=Qt.AlignmentFlag.AlignRight)
+        card_layout.addLayout(name_menu_layout)
         card_widget.setLayout(card_layout)
-        card_widget.setObjectName("game_card")
 
         return card_widget
 

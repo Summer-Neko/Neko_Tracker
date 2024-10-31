@@ -1,0 +1,31 @@
+QLabel#game_name_label {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+/* GameManagerPage 背景 */
+QWidget#HomePage {
+    background-color: #f0f8ff;
+}
+
+
+QProgressBar {
+    height: 8px;
+    border-radius: 4px;
+    background-color: #E0E0E0;
+}
+
+QProgressBar::chunk {
+    background-color: #87CEFA; /* 蓝色进度条 */
+    border-radius: 4px;
+}
+
+QLabel#running_label {
+    color: green;
+    font-size: 14px;
+    font-weight: bold;
+}
+QPushButton#sidebarButton:focus {
+    outline: none;
+    border: none;
+}
