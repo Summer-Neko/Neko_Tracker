@@ -65,3 +65,25 @@ def remove_shortcut(app_name="MyApp"):
     shortcut_path = os.path.join(startup_folder, f"{app_name}.lnk")
     if os.path.exists(shortcut_path):
         os.remove(shortcut_path)
+
+
+def create_vbs_autostart(app_name="MyApp"):
+    """在启动文件夹中创建一个 VBS 脚本用于开机自启动"""
+    # 获取当前应用的路径
+    exe_path = sys.executable
+    startup_folder = os.path.join(os.getenv("APPDATA"), r"Microsoft\Windows\Start Menu\Programs\Startup")
+    vbs_path = os.path.join(startup_folder, f"{app_name}.vbs")
+
+    # VBS 脚本内容
+    vbs_content = f'Set ws = CreateObject("WScript.Shell")\nws.Run "{exe_path}", 0'
+
+    # 写入 VBS 文件
+    with open(vbs_path, "w") as vbs_file:
+        vbs_file.write(vbs_content)
+
+def remove_vbs_autostart(app_name="MyApp"):
+    """删除启动文件夹中的 VBS 自启动脚本"""
+    startup_folder = os.path.join(os.getenv("APPDATA"), r"Microsoft\Windows\Start Menu\Programs\Startup")
+    vbs_path = os.path.join(startup_folder, f"{app_name}.vbs")
+    if os.path.exists(vbs_path):
+        os.remove(vbs_path)

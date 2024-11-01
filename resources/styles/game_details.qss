@@ -1,0 +1,61 @@
+QWidget#GameDetails {
+    background-color: #f0f8ff;
+}
+
+QLabel#game_name_label {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+}
+
+QProgressBar {
+    height: 8px;
+    border-radius: 4px;
+    background-color: #E0E0E0;
+}
+
+QProgressBar::chunk {
+    background-color: #87CEFA;
+    border-radius: 4px;
+}
+
+QPushButton {
+    background-color: #87CEFA;
+    color: white;
+    border-radius: 4px;
+    padding: 5px;
+    font-weight: bold;
+}
+
+QPushButton:hover {
+    background-color: #00BFFF;
+}
+
+
+#game_name_label {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+}
+
+QProgressBar {
+    height: 8px;
+    border-radius: 4px;
+    background-color: #E0E0E0;
+}
+
+QProgressBar::chunk {
+    background-color: #87CEFA;
+    border-radius: 4px;
+}
+
+QPushButton {
+    background-color: #87CEFA;
+    color: #FFF;
+    padding: 8px 16px;
+    border-radius: 4px;
+}
+
+QPushButton:hover {
+    background-color: #5DB2FF;
+}

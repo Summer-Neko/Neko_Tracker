@@ -1,14 +1,62 @@
-QLabel#game_name_label {
-    font-size: 18px;
-    font-weight: bold;
-}
-
-/* GameManagerPage 背景 */
+/* 设置主页背景色 */
 QWidget#HomePage {
     background-color: #f0f8ff;
+    border: none;
+}
+
+/* 卡片样式 */
+#game_card {
+    border: none;
+    border-radius: 8px;
+    padding: 8px;
+    background: rgba(255, 255, 255, 0.15);
+    margin-bottom: 2px;
+    transition: transform 0.4s ease-in-out, background 0.2s ease-in-out;
+}
+
+/* 鼠标悬浮时卡片的背景和内容同步变化 */
+#game_card:hover {
+    transform: scale(1.4);  /* 轻微放大效果 */
+    background: rgba(255, 255, 255, 0.9);
+}
+
+/* 游戏名称样式 */
+#game_name_label {
+    font-size: 18px;
+    font-weight: bold;
+    color: rgba(100, 100, 100, 0.8);
+    background: transparent;
+}
+
+/* 鼠标悬浮时字体颜色也随之变化 */
+#game_card:hover #game_name_label #toal_time_label #recent_time_label{
+    color: rgba(50, 50, 50, 1);
+    background: transparent;
+}
+
+/* 总时长和近两周时长标签样式 */
+#total_time_label{
+    color: rgba(100, 100, 100, 0.8);
+    background: transparent;
+}
+#recent_time_label {
+    color: rgba(100, 100, 100, 0.8);
+    background: transparent;
 }
 
 
+/* 运行状态样式，固定在卡片的最右侧居中 */
+#running_label {
+    color: green;
+    font-weight: bold;
+    background: transparent;
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+/* 进度条样式 */
 QProgressBar {
     height: 8px;
     border-radius: 4px;
@@ -16,16 +64,6 @@ QProgressBar {
 }
 
 QProgressBar::chunk {
-    background-color: #87CEFA; /* 蓝色进度条 */
+    background-color: #87CEFA;
     border-radius: 4px;
-}
-
-QLabel#running_label {
-    color: green;
-    font-size: 14px;
-    font-weight: bold;
-}
-QPushButton#sidebarButton:focus {
-    outline: none;
-    border: none;
 }

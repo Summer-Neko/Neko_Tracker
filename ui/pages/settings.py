@@ -1,9 +1,8 @@
 import os
 
-from PyQt6.QtCore import Qt
 from PyQt6.QtWidgets import QWidget, QVBoxLayout, QCheckBox
 
-from utils.utils import create_shortcut, remove_shortcut, get_startup_folder
+from utils.utils import create_vbs_autostart, remove_vbs_autostart
 
 
 class SettingsPage(QWidget):
@@ -14,6 +13,11 @@ class SettingsPage(QWidget):
         self.main_window = main_window
 
         layout = QVBoxLayout()
+
+        # 无感模式选项
+        self.stealth_mode_checkbox = QCheckBox("无感模式（开启时默认进入托盘）")
+        self.stealth_mode_checkbox.stateChanged.connect(self.save_settings)
+        layout.addWidget(self.stealth_mode_checkbox)
 
 
         # 开机自启动复选框
@@ -32,16 +36,17 @@ class SettingsPage(QWidget):
         self.setLayout(layout)
 
     def load_autostart_status(self):
-        """检测启动文件夹中是否存在应用快捷方式，并更新复选框状态"""
-        shortcut_path = os.path.join(get_startup_folder(), "NekoGame.lnk")
-        self.auto_start_checkbox.setChecked(os.path.exists(shortcut_path))
+        """检查启动文件夹中是否存在 VBS 自启动脚本，并更新复选框状态"""
+        startup_folder = os.path.join(os.getenv("APPDATA"), r"Microsoft\Windows\Start Menu\Programs\Startup")
+        vbs_path = os.path.join(startup_folder, "MyApp.vbs")
+        self.auto_start_checkbox.setChecked(os.path.exists(vbs_path))
 
     def toggle_autostart(self, state):
-        """根据复选框状态创建或删除快捷方式"""
-        if state == 2:  # 2 表示勾选状态
-            create_shortcut("NekoGame")  # 创建快捷方式
+        """根据复选框状态创建或删除 VBS 自启动脚本"""
+        if state == 2:  # 勾选状态
+            create_vbs_autostart("NekoGame")
         else:
-            remove_shortcut("NekoGame")  # 删除快捷方式
+            remove_vbs_autostart("NekoGame")
 
     def save_settings(self):
         """调用主窗口的保存设置方法，实现实时保存"""

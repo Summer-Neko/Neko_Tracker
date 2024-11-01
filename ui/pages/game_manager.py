@@ -1,6 +1,6 @@
 from PyQt6.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout, QLabel, QPushButton, QFileDialog, QGridLayout, QDialog, \
     QMenu
-from PyQt6.QtGui import QPixmap, QAction
+from PyQt6.QtGui import QPixmap, QAction, QImage
 from PyQt6.QtCore import Qt, QPoint
 from database import add_game, get_games, get_game, delete_game
 from ui.pages.game_dialog import GameDialog
@@ -67,10 +67,9 @@ class GameManagerPage(QWidget):
         # 使用高质量缩放模式显示图片
         poster_label = QLabel()
         poster_label.setObjectName("poster_label")
-        poster_pixmap = QPixmap(game[4]) if game[4] else QPixmap(resource_path("resources/images/default_vertical.png"))
-        poster_label.setPixmap(poster_pixmap.scaled(150, 200, Qt.AspectRatioMode.KeepAspectRatioByExpanding,
-                                                    Qt.TransformationMode.SmoothTransformation))
-        poster_label.setAlignment(Qt.AlignmentFlag.AlignTop)
+        image = QImage(game[4]) if game[4] else QImage(resource_path("resources/images/default_vertical.png"))
+        scaled_image = image.scaled(150, 200, Qt.AspectRatioMode.KeepAspectRatioByExpanding, Qt.TransformationMode.SmoothTransformation)
+        poster_label.setPixmap(QPixmap.fromImage(scaled_image))
 
         # 卡片布局
         name_menu_layout = QHBoxLayout()

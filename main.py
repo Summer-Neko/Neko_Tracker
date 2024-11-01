@@ -1,4 +1,5 @@
-from PyQt6.QtGui import QIcon
+from PyQt6.QtCore import Qt
+from PyQt6.QtGui import QIcon, QGuiApplication
 from PyQt6.QtWidgets import QApplication, QMessageBox
 
 from database import init_db
@@ -17,10 +18,12 @@ if is_already_running():
 def main():
 
     init_db()  # 初始化数据库
-    app = QApplication(sys.argv)
+    app = QApplication([])
+
+    # 启用高 DPI 支持
+    QGuiApplication.setHighDpiScaleFactorRoundingPolicy(Qt.HighDpiScaleFactorRoundingPolicy.PassThrough)
     app.setWindowIcon(QIcon(resource_path("resources/icons/app_icon.png")))
     main_window = MainWindow()
-    main_window.show()
     sys.exit(app.exec())
 
 if __name__ == '__main__':

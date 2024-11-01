@@ -11,7 +11,7 @@ class GameTracker(QObject):
         self.tracked_games = {}  # 存储正在追踪的游戏信息
         self.timer = QTimer()
         self.timer.timeout.connect(self.check_games_status)
-        self.timer.start(6000)  # 每60秒更新一次
+        self.timer.start(4000)  # 每4秒更新一次
 
     def initialize_tracking(self):
         games = get_games()

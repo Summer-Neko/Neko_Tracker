@@ -1,6 +1,4 @@
-import sqlite3
-import os
-from datetime import datetime, timedelta
+
 
 from utils.utils import app_root_path
 
@@ -219,3 +217,41 @@ def update_game_session(session_id, end_time):
     ''', (end_time.isoformat(), session_id))
     conn.commit()
     conn.close()
+
+
+# 获取游戏最后一次运行时间
+def get_last_play_time(game_id):
+    conn = sqlite3.connect(DB_PATH)
+    cursor = conn.cursor()
+    cursor.execute('''
+        SELECT MAX(end_time) FROM game_sessions WHERE game_id = ?
+    ''', (game_id,))
+    result = cursor.fetchone()[0]
+    conn.close()
+    return result if result else "-"
+
+# 获取游戏的所有会话数据，用于绘制趋势图
+from datetime import datetime, timedelta
+import sqlite3
+
+
+def get_game_sessions(game_id):
+    conn = sqlite3.connect(DB_PATH)
+    cursor = conn.cursor()
+    two_weeks_ago = datetime.now() - timedelta(days=14)
+    cursor.execute('''
+        SELECT date(start_time) as date,
+               SUM(
+                   CASE
+                       WHEN end_time IS NOT NULL THEN (julianday(end_time) - julianday(start_time)) * 24
+                       ELSE (julianday('now') - julianday(start_time)) * 24
+                   END
+               ) as duration
+        FROM game_sessions
+        WHERE game_id = ? AND date(start_time) >= ?
+        GROUP BY date(start_time)
+    ''', (game_id, two_weeks_ago.date()))
+
+    data = [{"date": row[0], "duration": row[1]} for row in cursor.fetchall()]
+    conn.close()
+    return data
